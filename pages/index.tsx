@@ -2,18 +2,19 @@ import axios from 'axios';
 import type { NextPage } from 'next';
 import { useCallback } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import client from '../util/client';
 
 const Home: NextPage = () => {
   const queryClient = useQueryClient();
 
   const { status, data, error, isFetching } = useQuery('todos', async () => {
-    const res = await axios.get('/api/data');
+    const res = await client.get('/api/data');
     return res.data;
   });
 
   const addListMutation = useMutation(
     () =>
-      axios.post('/api/data', {
+      client.post('/api/data', {
         accessToken: localStorage.getItem('accessToken'),
       }),
     {
