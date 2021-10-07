@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         defaultOptions: {
           mutations: {
             retry: (failureCount, error: any) => {
-              if (error?.message?.includes('401')) {
+              if (error?.response?.status === 401) {
                 localStorage.setItem('accessToken', 'true');
                 localStorage.setItem('refreshToken', 'true');
                 return true;
